@@ -1,8 +1,9 @@
 require 'sqlite3'
 class Task
+  attr_reader :title, :description
   def initialize(task_params)
-    @description = task_params["description"]
     @title       = task_params["title"]
+    @description = task_params["description"]
     @database = SQLite3::Database.new('db/task_manager_development.db')
     @database.results_as_hash = true # overrides default of returning rows as arrays
   end
@@ -18,5 +19,5 @@ class Task
     tasks.map do |task|
       Task.new(task)
     end
-  end 
+  end
 end
