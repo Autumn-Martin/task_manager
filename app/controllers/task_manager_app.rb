@@ -3,6 +3,7 @@ require_relative "../models/task.rb"
 class TaskManagerApp < Sinatra::Base
   set :root, File.expand_path("..", __dir__)
   # set :method_override, true
+  set :method_override, true  # this allows us to use _method in the form
 
   get '/' do
     erb :dashboard #look for an erb file called  'dashboard'
@@ -33,13 +34,13 @@ class TaskManagerApp < Sinatra::Base
     erb :edit
   end
 
-  # put '/tasks/:id' do |id|
-  #   Task.update(id.to_i, params[:task])
-  #   redirect "/tasks/#{id}"
-  # end
-  #
-  # delete '/tasks:id' do |id|
-  #   Task.destroy(id.to_i)
-  #   redirect '/tasks'
-  # end
+  put '/tasks/:id' do |id|
+    Task.update(id.to_i, params[:task])
+    redirect "/tasks/#{id}"
+  end
+
+  delete '/tasks/:id' do |id|
+    Task.destroy(id.to_i)
+    redirect '/tasks'
+  end
 end
